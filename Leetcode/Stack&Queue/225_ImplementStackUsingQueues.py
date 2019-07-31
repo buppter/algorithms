@@ -48,13 +48,3 @@ class MyStack:
             return False
         return True
 
-
-if __name__ == "__main__":
-    s = MyStack()
-    s.push(1)
-    s.push(2)
-    # em = s.pop()
-    print(s.top())
-    print(s.pop())
-    print(s.empty())
-
