@@ -9,6 +9,7 @@ datetime: 2019/8/14 16:14
 解决思路：
 1. 排序返回前4个数
 2. 建立小顶堆
+3. 快排思想
 """
 
 
@@ -18,3 +19,35 @@ class Solution:
             return []
         tinput.sort()
         return tinput[:k]
+
+    def GetLeastNumbers_Solution1(self, tinput, k):
+        if not tinput or k > len(tinput) or not k:
+            return []
+        start = 0
+        end = len(tinput) - 1
+        s = self.quick_sort(tinput, start, end)
+        while s + 1 != k:
+            if s + 1 > k:
+                end = s - 1
+            if s + 1 < k:
+                start = s + 1
+            s = self.quick_sort(tinput, start, end)
+
+        return tinput[:k]
+
+    def quick_sort(self, alist, start, end):
+        if start > end:
+            return
+        low = start
+        high = end
+        mid = alist[start]
+
+        while low < high:
+            while alist[high] >= mid and low < high:
+                high -= 1
+            alist[low] = alist[high]
+            while alist[low] < mid and low < high:
+                low += 1
+            alist[high] = alist[low]
+        alist[low] = mid
+        return low
