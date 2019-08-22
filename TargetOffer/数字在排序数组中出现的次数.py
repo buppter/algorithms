@@ -36,3 +36,29 @@ class Solution:
         while data[r] != k and l < r:
             r -= 1
         return r - l + 1
+
+    # 二分查找
+    def GetNumberOfK4(self, data, k):
+        if not data:
+            return 0
+
+        low = self.binary_search(data, k - 0.5)
+        high = self.binary_search(data, k + 0.5)
+        return high - low
+
+    def binary_search(self, data, k):
+        low = 0
+        high = len(data) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if data[mid] > k:
+                high = mid - 1
+            else:
+                low = mid + 1
+        return low
+
+
+if __name__ == "__main__":
+    s = Solution()
+    res = s.GetNumberOfK4([3,3,3,3,4,5],3)
+    print(res)
