@@ -13,21 +13,22 @@ class Solution:
     def StrToInt(self, s: str) -> int:
         if not s:
             return 0
-        flag = True
+        flag = 1
 
-        dic = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+        dic = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
         if s[0] == "-":
-            flag = False
+            flag = -1
             s = s[1:]
         elif s[0] == "+":
             s = s[1:]
+        res = 0
+        count = 0
 
-        if len(s) == 0:
-            return 0
-
-        for i in s:
-            if i not in dic:
+        for i in s[::-1]:
+            if i in dic:
+                res += dic[i] * pow(10, count)
+                count += 1
+            else:
                 return 0
 
-        return int(s) if flag else -1 * int(s)
-
+        return res * flag
