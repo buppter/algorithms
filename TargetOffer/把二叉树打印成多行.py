@@ -17,20 +17,20 @@ class Solution:
     def Print(self, pRoot):
         if not pRoot:
             return []
-        queue = [pRoot]
         res = []
 
-        while queue:
-            line = []
-            size = len(queue)
-            for i in queue:
-                line.append(i.val)
-            res.append(line)
+        stack = [pRoot]
+        while stack:
+            size = len(stack)
+            cur_res = []
 
-            for i in range(size):
-                cur = queue.pop(0)
-                if cur.left:
-                    queue.append(cur.left)
-                if cur.right:
-                    queue.append(cur.right)
+            for _ in range(size):
+                node = stack.pop(0)
+
+                cur_res.append(node.val)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+            res.append(cur_res)
         return res
