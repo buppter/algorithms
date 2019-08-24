@@ -14,10 +14,8 @@ datetime: 2019/8/19 12:43
 class Solution:
     def __init__(self):
         self.first = []
-        self.s = []
 
     def Insert(self, char):
-        self.s += char
         for i in char:
             if i not in self.first:
                 self.first.append(i)
