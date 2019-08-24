@@ -13,19 +13,19 @@ datetime: 2019/8/19 12:43
 
 class Solution:
     def __init__(self):
-        self.dic = {}
-        self.s = ''
-
-    # 返回对应char
-    def FirstAppearingOnce(self):
-        for i in self.s:
-            if self.dic[i] == 1:
-                return i
-        return "#"
+        self.first = []
+        self.s = []
 
     def Insert(self, char):
         self.s += char
-        if char in self.dic:
-            self.dic[char] += 1
+        for i in char:
+            if i not in self.first:
+                self.first.append(i)
+            else:
+                self.first.remove(i)
+
+    def FirstAppearingOnce(self):
+        if self.first:
+            return self.first[0]
         else:
-            self.dic[char] = 1
+            return "#"
