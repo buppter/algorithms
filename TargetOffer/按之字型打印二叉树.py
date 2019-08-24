@@ -19,29 +19,23 @@ class Solution:
     def Print(self, pRoot):
         if not pRoot:
             return []
-        queue = [pRoot]
-        res = []
-        flag = 1
-        while queue:
-            line = []
-            size = len(queue)
-            if size == 1:
-                cur = queue[0]
-                line.append(cur.val)
-            else:
-                if flag > 0:
-                    for i in range(size):
-                        line.append(queue[i].val)
-                else:
-                    for i in range(size, 0, -1):
-                        line.append(queue[i-1].val)
-            res.append(line)
-            for i in range(size):
-                cur = queue.pop(0)
-                if cur.left:
-                    queue.append(cur.left)
-                if cur.right:
-                    queue.append(cur.right)
-            flag = -flag
-        return res
 
+        flag = 1
+        stack = [pRoot]
+        res = []
+        while stack:
+            size = len(stack)
+            cur_list = []
+            for _ in range(size):
+                node = stack.pop(0)
+                cur_list.append(node.val)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+            if flag == 1:
+                res.append(cur_list)
+            else:
+                res.append(cur_list[::-1])
+            flag *= -1
+        return res
