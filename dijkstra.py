@@ -34,7 +34,7 @@ class Dijkstra:
 
         while pqueue:
             cur_distance, cur_node = heapq.heappop(pqueue)
-            seen.add(start)
+            seen.add(cur_node)
             nodes = graph[cur_node]
 
             for node, dist in nodes.items():
