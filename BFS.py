@@ -18,7 +18,8 @@ def bfs(graph, start):
         return [], []
 
     stack = [start]
-    seen = [start]
+    seen = set()
+    seen.add(start)
     parent = {start: None}
     res = []
     while stack:
@@ -29,7 +30,7 @@ def bfs(graph, start):
         for node in nodes:
             if node not in seen:
                 stack.append(node)
-                seen.append(node)
+                seen.add(node)
                 parent[node] = cur
         res.append(cur)
     return res, parent
