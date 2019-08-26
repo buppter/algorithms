@@ -2,6 +2,7 @@
 author: buppter
 datetime: 2019/8/25 10:51
 """
+import heapq
 
 graph = {
     "A": {"B": 5, "C": 1},
@@ -14,40 +15,36 @@ graph = {
 
 
 class Dijkstra:
-    def init_unvisited(self, graph):
-        unvisited = {}
+    def init_distance(self, graph, start):
+        distance = {start: 0}
         for key in graph.keys():
-            unvisited[key] = None
-        return unvisited
+            if key != start:
+                distance[key] = float('inf')
+        return distance
 
     def dijkstra(self, graph, start):
         if not graph or not start:
             return None
 
-        unvisited = self.init_unvisited(graph)
-        visited = {}
-        cur_node = start
-        cur_distance = 0
-        # 父节点记录
+        distance = self.init_distance(graph, start)
+        pqueue = []
+        heapq.heappush(pqueue, (0, start))
+        seen = set()
         parent = {start: None}
-        while True:
-            nodes = graph[cur_node]
-            for node, distance in nodes.items():
-                if node in visited:
-                    continue
-                if unvisited[node] is None or unvisited[node] > cur_distance + distance:
-                    unvisited[node] = cur_distance + distance
-                    parent[node] = cur_node
-            visited[cur_node] = cur_distance
-            unvisited.pop(cur_node)
-            if not unvisited:
-                break
-            candidates = [node for node in unvisited.items() if node[1]]
-            # 进行调整，得到新的最短路径
-            candidates = sorted(candidates, key=lambda x: x[1])
-            cur_node, cur_distance = candidates[0]
 
-        return visited, parent
+        while pqueue:
+            cur_distance, cur_node = heapq.heappop(pqueue)
+            seen.add(start)
+            nodes = graph[cur_node]
+
+            for node, dist in nodes.items():
+                if node in seen:
+                    continue
+                elif distance[node] > cur_distance + dist:
+                    heapq.heappush(pqueue, (dist + cur_distance, node))
+                    parent[node] = cur_node
+                    distance[node] = cur_distance + dist
+        return distance, parent
 
 
 if __name__ == '__main__':
