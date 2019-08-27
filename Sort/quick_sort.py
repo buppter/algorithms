@@ -3,6 +3,7 @@ author: buppter
 datetime: 2019/8/27 14:08
 
 快排
+时间复杂度： O(nlogn)
 """
 
 
