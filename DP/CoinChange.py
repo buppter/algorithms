@@ -11,7 +11,7 @@ def coin_change(coins, amount):
     if not coins:
         return -1
 
-    res = [float('inf')] * amount + 1
+    res = [float('inf')] * (amount + 1)
     res[0] = 0
 
     for i in range(1, amount + 1):
