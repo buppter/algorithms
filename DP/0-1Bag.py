@@ -60,10 +60,10 @@ class Bag01_per:
             return 0
 
         res = [0 for _ in range(max_weight + 1)]
-        for i in range(1, len(weight)):
+        for i in range(1, len(weight) + 1):
             for j in range(max_weight, 0, -1):
-                if j >= weight[i]:
-                    res[j] = max(res[j], res[j - weight[i]] + value[i])
+                if j >= weight[i - 1]:
+                    res[j] = max(res[j], res[j - weight[i - 1]] + value[i - 1])
         return res[-1]
 
 
