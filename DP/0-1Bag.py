@@ -53,6 +53,20 @@ class Bag01:
         return r
 
 
+# 优化空间复杂度
+class Bag01_per:
+    def bag01_per(self, weight, values, max_weight):
+        if not weight or not values or not max_weight:
+            return 0
+
+        res = [0 for _ in range(max_weight + 1)]
+        for i in range(1, len(weight)):
+            for j in range(max_weight, 0, -1):
+                if j >= weight[i]:
+                    res[j] = max(res[j], res[j - weight[i]] + value[i])
+        return res[-1]
+
+
 if __name__ == '__main__':
     weight = [2, 2, 3, 1, 5, 2]
     value = [2, 3, 1, 5, 4, 3]
@@ -61,3 +75,7 @@ if __name__ == '__main__':
     res, r_index = s.bag01(weight, value, max_weight)
     print(res)
     print(r_index)
+
+    s2 = Bag01_per()
+    res = s2.bag01_per(weight, value, max_weight)
+    print(res)
