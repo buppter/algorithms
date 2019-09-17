@@ -9,11 +9,12 @@ datetime: 2019/8/21 19:17
 
 
 解决思路：
-每次打印第一行，然后矩阵逆时针旋转90度，重复之前步骤
+1. 每次打印第一行，然后矩阵逆时针旋转90度，重复之前步骤(但时间复杂度过高）
+2. 具体看代码吧
 """
 
 
-class Solution:
+class Solution1:
     # matrix类型为二维列表，需要返回列表
     def printMatrix(self, matrix):
         if not matrix:
@@ -39,3 +40,38 @@ class Solution:
             res.append(new_res)
         return res
 
+
+class Solution2:
+    def __init__(self):
+        self.res = []
+
+    def printMatrix(self, matrix):
+
+        if not matrix:
+            return self.res
+
+        row = len(matrix)
+        col = len(matrix[0])
+
+        if not row or not col:
+            return self.res
+
+        elif row == 1:
+            self.res += matrix[0]
+            return self.res
+
+        for i in range(col):
+            self.res.append(matrix[0][i])
+        for i in range(1, row):
+            self.res.append(matrix[i][col - 1])
+        if row > 1:
+            for i in range(col - 2, -1, -1):
+                self.res.append(matrix[row - 1][i])
+        if col > 1:
+            for i in range(row - 2, 0, -1):
+                self.res.append(matrix[i][0])
+
+        new_matrix = [l[1: col - 1] for l in matrix[1: row - 1]]
+        if new_matrix:
+            self.printMatrix(new_matrix)
+        return self.res
