@@ -18,7 +18,3 @@ class Solution:
         if carry:
             digits.insert(0, carry)
         return digits
-
-
-if __name__ == '__main__':
-    print(Solution().plusOne([9,9]))
