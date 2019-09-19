@@ -51,3 +51,23 @@ class Solution:
         if abs(left - right) > 1:
             self.isbalanced = False
         return max(left, right) + 1
+
+
+class Solution2:
+    def IsBalanced_Solution(self, pRoot):
+        # write code here
+        if not pRoot:
+            return True
+        self.isbalanced = True
+        self.getDepth(pRoot)
+        return self.isbalanced
+
+    def getDepth(self, pRoot):
+        if not pRoot:
+            return 0
+        left = self.getDepth(pRoot.left)
+        right = self.getDepth(pRoot.right)
+
+        if abs(left - right) > 1:
+            self.isbalanced = False
+        return max(left, right) + 1
